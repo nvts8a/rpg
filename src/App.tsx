@@ -1,13 +1,25 @@
 import './App.css';
-import {jsx} from '@emotion/react';
-import JSX = jsx.JSX;
+import './components/Character';
+import Character from './components/Character';
+import {FunctionComponent} from 'react';
+import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 
-function App(): JSX.Element {
+const App: FunctionComponent = () => {
+  const bannerStyle = {
+    backgroundImage: 'url(./banner.jpg)',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'space',
+    height: '25rem'
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-          Hello.
-      </header>
+      <Grid container spacing={2}>
+        <Grid xs={12} id='header' style={bannerStyle} />
+        <Grid>
+          <Character />
+        </Grid>
+      </Grid>
     </div>
   );
 }
