@@ -77,7 +77,7 @@ const CharacterSelectField: FunctionComponent<CharacterFieldProps> = (props: Cha
   return (
     <FormControl fullWidth>
       <InputLabel id={props.name}>{props.label}</InputLabel>
-      <Select labelId={props.name} id={props.name + '-select'}
+      <Select labelId={props.name} id={`${props.name}-select`}
         value={props.value}
         label={props.label}
         onChange={(e: SelectChangeEvent): void => props.setFunction(e.target.value)}
