@@ -53,7 +53,7 @@ const Character: FunctionComponent = () => {
         value={value}
         onChange={handleChange}
         aria-label="Vertical tabs example"
-        sx={{ borderRight: 1, borderColor: 'divider' }}
+        sx={{ borderRight: 1, minWidth: '12%', borderColor: 'divider' }}
       >
         <Tab label="Personal Data" {...a11yProps(0)} />
         <Tab label="Item Two" {...a11yProps(1)} />
@@ -64,7 +64,7 @@ const Character: FunctionComponent = () => {
         <Tab label="Item Seven" {...a11yProps(6)} />
       </Tabs>
       <TabPanel value={value} index={0}>
-        <PersonalData/>
+        <PersonalData />
       </TabPanel>
       <TabPanel value={value} index={1}>
         Item Two
