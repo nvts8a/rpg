@@ -1,49 +1,33 @@
-/* eslint-env browser */
-import {ChangeEvent, FunctionComponent} from 'react';
+import {FunctionComponent, SyntheticEvent} from 'react';
 import {useLocalStorage} from './react-local-storage';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import PersonalData from './PersonalData';
+import {Box, Tab} from '@mui/material';
+import {TabContext, TabList, TabPanel} from '@mui/lab';
 
 const Character: FunctionComponent = () => {
-  return (
-    <div>
-      <PersonalData />
-    </div>
-  );
-}
-const PersonalData: FunctionComponent = () => {
-  const [name, setName] = useLocalStorage('name', '');
+  const [value, setValue] = useLocalStorage('currentTab', 'personal-data');
+
+  const handleChange = (e: SyntheticEvent, newValue: string): void => {
+    setValue(newValue);
+  };
 
   return (
-    <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
-      <div>
-        <TextField id="outlined" label="Name / Primary Alias" defaultValue={name}
-          onChange={ (e: ChangeEvent<HTMLInputElement>): void => setName(e.target.value) } />
-      </div>
-      {name}
+    <Box sx={{ flexGrow: 1, width: '100%', typography: 'body1' }}>
+      <TabContext value={value}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <TabList onChange={handleChange} aria-label="lab API tabs example">
+            <Tab label="Personal Data" value="personal-data" />
+            <Tab label="Item Two" value="2" />
+            <Tab label="Item Three" value="3" />
+          </TabList>
+        </Box>
+        <TabPanel value="personal-data"><PersonalData/></TabPanel>
+        <TabPanel value="2">Item Two</TabPanel>
+        <TabPanel value="3">Item Three</TabPanel>
+      </TabContext>
     </Box>
+
   );
-  /**
-   <div>
-   <TextField id="outlined" label="Metatype" />
-   <TextField id="outlined" label="Ethnicity" />
-   </div>
-   <div>
-   <TextField id="outlined" label="Age" />
-   <TextField id="outlined" label="Sex" />
-   <TextField id="outlined" label="Height" />
-   <TextField id="outlined" label="Weight" />
-   </div>
-   <div>
-   <TextField id="outlined" label="Reputation" />
-   <TextField id="outlined" label="Heat" />
-   </div>
-   <div>
-   <TextField id="outlined" label="Karma" />
-   <TextField id="outlined" label="Total Karma" />
-   <TextField id="outlined" label="Misc" />
-   </div>
-   **/
 }
 
 export default Character;

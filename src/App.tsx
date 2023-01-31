@@ -1,8 +1,7 @@
 import './App.css';
-import './components/Character';
 import Character from './components/Character';
 import {FunctionComponent} from 'react';
-import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
+import Grid from '@mui/material/Unstable_Grid2';
 
 const App: FunctionComponent = () => {
   const bannerStyle = {
@@ -16,7 +15,7 @@ const App: FunctionComponent = () => {
     <div className="App">
       <Grid container spacing={2}>
         <Grid xs={12} id='header' style={bannerStyle} />
-        <Grid>
+        <Grid sx={{flexGrow: 1}}>
           <Character />
         </Grid>
       </Grid>
