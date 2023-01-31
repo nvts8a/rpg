@@ -1,6 +1,7 @@
 import {FunctionComponent, ReactElement, ReactNode, SyntheticEvent} from 'react';
-import {useLocalStorage} from './react-local-storage';
+import {useLocalStorage} from '../utils/react-local-storage';
 import {Box, Tab, Tabs, Typography} from '@mui/material';
+import History from './History';
 import PersonalData from './PersonalData';
 
 interface TabPanelProps {
@@ -13,7 +14,8 @@ function TabPanel(props: TabPanelProps): ReactElement {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
+    <Box
+      sx={{ width: '100%' }}
       role="tabpanel"
       hidden={value !== index}
       id={`vertical-tabpanel-${index}`}
@@ -25,7 +27,7 @@ function TabPanel(props: TabPanelProps): ReactElement {
           <Typography>{children}</Typography>
         </Box>
       )}
-    </div>
+    </Box>
   );
 }
 
@@ -52,11 +54,11 @@ const Character: FunctionComponent = () => {
         variant="scrollable"
         value={value}
         onChange={handleChange}
-        aria-label="Vertical tabs example"
+        aria-label="Vertical Tabs"
         sx={{ borderRight: 1, minWidth: '12%', borderColor: 'divider' }}
       >
         <Tab label="Personal Data" {...a11yProps(0)} />
-        <Tab label="Item Two" {...a11yProps(1)} />
+        <Tab label="History" {...a11yProps(1)} />
         <Tab label="Item Three" {...a11yProps(2)} />
         <Tab label="Item Four" {...a11yProps(3)} />
         <Tab label="Item Five" {...a11yProps(4)} />
@@ -67,7 +69,7 @@ const Character: FunctionComponent = () => {
         <PersonalData />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <History />
       </TabPanel>
       <TabPanel value={value} index={2}>
         Item Three
@@ -86,27 +88,6 @@ const Character: FunctionComponent = () => {
       </TabPanel>
     </Box>
   );
-  /*
-
-  const handleChange = (e: SyntheticEvent, newValue: string): void => {
-    setValue(newValue);
-  };
-
-   *     <Box sx={{ typography: 'body1' }}>
-   *       <TabContext value={value}>
-   *         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-   *           <TabList orientation="vertical" onChange={handleChange} aria-label="lab API tabs example">
-   *             <Tab aria-orientation="vertical" id="vertical-tab-personal-data" label="Personal Data" value="personal-data" />
-   *             <Tab label="Item Two" value="2" />
-   *             <Tab label="Item Three" value="3" />
-   *           </TabList>
-   *         </Box>
-   *         <TabPanel id="vertical-tabpanel-personal-data" value="personal-data"><PersonalData/></TabPanel>
-   *         <TabPanel value="2">Item Two</TabPanel>
-   *         <TabPanel value="3">Item Three</TabPanel>
-   *       </TabContext>
-   *     </Box>
-   */
 }
 
 export default Character;
