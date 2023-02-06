@@ -1,8 +1,21 @@
 /* eslint-env browser */
 import {FunctionComponent, MouseEvent} from 'react';
-import {Box, ToggleButtonGroup} from '@mui/material';
+import {Box, ToggleButton, ToggleButtonGroup, Tooltip} from '@mui/material';
 import {useLocalStorage} from '../utils/react-local-storage';
-import QualitiesUtil from '../utils/QualitiesUtil';
+import QualitiesUtil, {Quality} from '../utils/QualitiesUtil';
+
+const QualityButton: Function = (quality: Quality) => {
+  return (
+    <ToggleButton value={quality.name}>
+      <Tooltip title={quality.tooltip}>
+        <Box>
+          <span>{quality.icon}</span>
+          <span>{quality.label}</span>
+        </Box>
+      </Tooltip>
+    </ToggleButton>
+  );
+}
 
 const Qualities: FunctionComponent = () => {
   const [totalKarma, setTotalKarma] = useLocalStorage('q.total-karma', 50);
@@ -38,16 +51,18 @@ const Qualities: FunctionComponent = () => {
     <Box>
       {totalKarma}
       <ToggleButtonGroup
+        orientation="vertical"
         value={positiveQualities}
         onChange={handlePositiveChange}>
-        {QualitiesUtil.Ambidextrous.Button}
-        {QualitiesUtil.AnalyticalMind.Button}
+        { QualityButton(QualitiesUtil.Ambidextrous) }
+        { QualityButton(QualitiesUtil.AnalyticalMind) }
       </ToggleButtonGroup>
       <ToggleButtonGroup
+        orientation="vertical"
         value={negativeQualities}
         onChange={handleNegativeChange}>
-        {QualitiesUtil.Addiction.Button}
-        {QualitiesUtil.Allergy.Button}
+        { QualityButton(QualitiesUtil.Addiction) }
+        { QualityButton(QualitiesUtil.Allergy) }
       </ToggleButtonGroup>
     </Box>
   );
