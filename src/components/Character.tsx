@@ -2,6 +2,7 @@ import {FunctionComponent, ReactElement, ReactNode, SyntheticEvent} from 'react'
 import {useLocalStorage} from '../utils/react-local-storage';
 import {Box, Tab, Tabs, Typography} from '@mui/material';
 import History from './History';
+import Qualities from './Qualities';
 import PersonalData from './PersonalData';
 
 interface TabPanelProps {
@@ -59,7 +60,7 @@ const Character: FunctionComponent = () => {
       >
         <Tab label="Personal Data" {...a11yProps(0)} />
         <Tab label="History" {...a11yProps(1)} />
-        <Tab label="Item Three" {...a11yProps(2)} />
+        <Tab label="Qualities" {...a11yProps(2)} />
         <Tab label="Item Four" {...a11yProps(3)} />
         <Tab label="Item Five" {...a11yProps(4)} />
         <Tab label="Item Six" {...a11yProps(5)} />
@@ -72,7 +73,7 @@ const Character: FunctionComponent = () => {
         <History />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        <Qualities />
       </TabPanel>
       <TabPanel value={value} index={3}>
         Item Four

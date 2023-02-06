@@ -65,10 +65,10 @@ const PersonalData: FunctionComponent = () => {
           <CharacterTextField label="Heat" value={heat} setFunction={setHeat}/>
         </Grid>
         <Grid xs={4}>
-          <CharacterTextField label="Karma" value={karma} setFunction={setKarma}/>
+          <CharacterTextField label="QualitiesUtil" value={karma} setFunction={setKarma}/>
         </Grid>
         <Grid xs={4}>
-          <CharacterTextField label="Total Karma" value={totalKarma} setFunction={setTotalKarma}/>
+          <CharacterTextField label="Total QualitiesUtil" value={totalKarma} setFunction={setTotalKarma}/>
         </Grid>
         <Grid xs={4}>
           <CharacterTextField label="Misc" value={misc} setFunction={setMisc}/>
