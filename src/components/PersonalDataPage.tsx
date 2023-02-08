@@ -1,12 +1,17 @@
 /* eslint-env browser */
 import {FunctionComponent} from 'react';
-import {useLocalStorage} from '../utils/react-local-storage';
 import Grid from '@mui/material/Unstable_Grid2';
-import {Box, MenuItem} from '@mui/material';
+import {MenuItem} from '@mui/material';
 import {CharacterSelectField, CharacterTextField} from './Feilds';
+import PageLayout from '../layouts/PageLayout';
+import {useLocalStorage} from '../utils/react-local-storage';
 
-const PersonalData: FunctionComponent = () => {
-  const [name, setName] = useLocalStorage('pd.name', '');
+type PersonalDataPageProps = {
+  name: string,
+  setName: Function
+}
+
+const PersonalDataPage: FunctionComponent<PersonalDataPageProps> = (props) => {
   const [role, setRole] = useLocalStorage('pd.role', '');
   const [metatype, setMetatype] = useLocalStorage('pd.metatype', '');
   const [ethnicity, setEthnicity] = useLocalStorage('pd.ethnicity', '');
@@ -21,10 +26,10 @@ const PersonalData: FunctionComponent = () => {
   const [misc, setMisc] = useLocalStorage('pd.misc', '');
 
   return (
-    <Box>
+    <PageLayout>
       <Grid container spacing={2}>
         <Grid xs={6}>
-          <CharacterTextField label="Name / Primary Alias" value={name} setFunction={setName}/>
+          <CharacterTextField label="Name / Primary Alias" value={props.name} setFunction={props.setName}/>
         </Grid>
         <Grid xs={6}>
           <CharacterSelectField label="Role" value={role} setFunction={setRole}>
@@ -74,8 +79,8 @@ const PersonalData: FunctionComponent = () => {
           <CharacterTextField label="Misc" value={misc} setFunction={setMisc}/>
         </Grid>
       </Grid>
-    </Box>
+    </PageLayout>
   );
 }
 
-export default PersonalData;
+export default PersonalDataPage;

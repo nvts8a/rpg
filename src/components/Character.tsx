@@ -1,9 +1,10 @@
-import {FunctionComponent, ReactElement, ReactNode, SyntheticEvent} from 'react';
+import React, {FunctionComponent, ReactElement, ReactNode, SyntheticEvent} from 'react';
 import {useLocalStorage} from '../utils/react-local-storage';
 import {Box, Tab, Tabs, Typography} from '@mui/material';
-import History from './History';
-import Qualities from './Qualities';
-import PersonalData from './PersonalData';
+import HistoryPage from './HistoryPage';
+import QualitiesPage from './QualitiesPage';
+import PersonalDataPage from './PersonalDataPage';
+import CharacterCard from './CharacterCard';
 
 interface TabPanelProps {
   children?: ReactNode;
@@ -40,10 +41,14 @@ function a11yProps(index: number): any {
 }
 
 const Character: FunctionComponent = () => {
-  const [value, setValue] = useLocalStorage('currentTab', 0);
+  const [currentTab, setCurrentTab] = useLocalStorage('currentTab', 0);
 
-  const handleChange = (event: SyntheticEvent, newValue: number): void => {
-    setValue(newValue);
+  // Character Card Values
+  const [name, setName] = useLocalStorage('pd.name', '');
+  const [totalKarma, setTotalKarma] = useLocalStorage('q.total-karma', 50);
+
+  const handleTabChange = (event: SyntheticEvent, newValue: number): void => {
+    setCurrentTab(newValue);
   };
 
   return (
@@ -53,40 +58,25 @@ const Character: FunctionComponent = () => {
       <Tabs
         orientation="vertical"
         variant="scrollable"
-        value={value}
-        onChange={handleChange}
+        value={currentTab}
+        onChange={handleTabChange}
         aria-label="Vertical Tabs"
         sx={{ borderRight: 1, minWidth: '12%', borderColor: 'divider' }}
       >
         <Tab label="Personal Data" {...a11yProps(0)} />
-        <Tab label="History" {...a11yProps(1)} />
+        <Tab label="HistoryPage" {...a11yProps(1)} />
         <Tab label="Qualities" {...a11yProps(2)} />
-        <Tab label="Item Four" {...a11yProps(3)} />
-        <Tab label="Item Five" {...a11yProps(4)} />
-        <Tab label="Item Six" {...a11yProps(5)} />
-        <Tab label="Item Seven" {...a11yProps(6)} />
       </Tabs>
-      <TabPanel value={value} index={0}>
-        <PersonalData />
+      <TabPanel value={currentTab} index={0}>
+        <PersonalDataPage name={name} setName={setName} />
       </TabPanel>
-      <TabPanel value={value} index={1}>
-        <History />
+      <TabPanel value={currentTab} index={1}>
+        <HistoryPage />
       </TabPanel>
-      <TabPanel value={value} index={2}>
-        <Qualities />
+      <TabPanel value={currentTab} index={2}>
+        <QualitiesPage setTotalKarma={setTotalKarma} />
       </TabPanel>
-      <TabPanel value={value} index={3}>
-        Item Four
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        Item Five
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        Item Six
-      </TabPanel>
-      <TabPanel value={value} index={6}>
-        Item Seven
-      </TabPanel>
+      <CharacterCard name={name} totalKarma={totalKarma} />
     </Box>
   );
 }

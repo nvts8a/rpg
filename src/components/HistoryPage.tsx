@@ -1,11 +1,12 @@
 /* eslint-env browser */
 import {FunctionComponent} from 'react';
-import {useLocalStorage} from '../utils/react-local-storage';
 import Grid from '@mui/material/Unstable_Grid2';
-import {Box, Tooltip} from '@mui/material';
+import {Tooltip} from '@mui/material';
 import {CharacterMultiLineTextField, CharacterSliderField} from './Feilds';
+import PageLayout from '../layouts/PageLayout';
+import {useLocalStorage} from '../utils/react-local-storage';
 
-const History: FunctionComponent = () => {
+const HistoryPage: FunctionComponent = () => {
   const [born, setBorn] = useLocalStorage('h.born', '');
   const [raised, setRaised] = useLocalStorage('h.raised', '');
   const [trained, setTrained] = useLocalStorage('h.trained', '');
@@ -14,7 +15,7 @@ const History: FunctionComponent = () => {
 
 
   return (
-    <Box width='100%'>
+    <PageLayout>
       <Grid width='100%' container spacing={2}>
         <Tooltip title={tooltips.born}>
           <Grid xs={6}>
@@ -44,7 +45,7 @@ const History: FunctionComponent = () => {
           <CharacterSliderField label='Slider' value={slider} setFunction={setSlider} />
         </Grid>
       </Grid>
-    </Box>
+    </PageLayout>
   );
 }
 
@@ -133,4 +134,4 @@ const tooltips = {
     'far will you be willing to go to see it succeed?',
 }
 
-export default History;
+export default HistoryPage;
