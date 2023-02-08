@@ -1,70 +1,80 @@
 /* eslint-env browser */
-import {FunctionComponent, MouseEvent} from 'react';
-import {Box, ToggleButton, ToggleButtonGroup, Tooltip} from '@mui/material';
-import {useLocalStorage} from '../utils/react-local-storage';
+import React, {ChangeEvent, FunctionComponent, MouseEvent, ReactNode} from 'react';
+import {Accordion, AccordionDetails, AccordionSummary, Box, Switch, Typography} from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import QualitiesUtil, {Quality} from '../utils/QualitiesUtil';
+import {useLocalStorage} from '../utils/react-local-storage';
 
-const QualityButton: Function = (quality: Quality) => {
+const QualityAccordion: Function = (
+  quality: Quality,
+  expanded: string,
+  isChecked: boolean,
+  handleChange: Function,
+  onSwitchChange: (event: ChangeEvent<HTMLInputElement>, checked: boolean) => void) =>
+{
   return (
-    <ToggleButton value={quality.name}>
-      <Tooltip title={quality.tooltip}>
-        <Box>
-          <span>{quality.icon}</span>
-          <span>{quality.label}</span>
-        </Box>
-      </Tooltip>
-    </ToggleButton>
+    <Accordion key={quality.name} expanded={expanded === quality.name} onChange={handleChange(quality.name)}>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panel1bh-content"
+        id="panel1bh-header"
+      >
+        <Switch value={quality.name} checked={isChecked} onClick={(event: MouseEvent<HTMLButtonElement>) => {event.stopPropagation()}} onChange={onSwitchChange} />
+        <Typography sx={{ width: '33%', flexShrink: 0 }}>
+          {quality.label}
+        </Typography>
+        <Typography sx={{ color: 'text.secondary' }}>{quality.value} Points</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Typography>
+          {quality.tooltip}
+        </Typography>
+      </AccordionDetails>
+    </Accordion>
   );
 }
 
 const Qualities: FunctionComponent = () => {
   const [totalKarma, setTotalKarma] = useLocalStorage('q.total-karma', 50);
-  const [positiveQualities, setPositiveQualities] = useLocalStorage('q.positive-qualities', []);
-  const handlePositiveChange = (event: MouseEvent<HTMLElement>, newQualities: string[]): void => {
-    setPositiveQualities(newQualities);
-    setTotalKarma(calculateKarma(newQualities, negativeQualities));
+  const [qualities, setQualities] = useLocalStorage('q.qualities', {});
+  const [expanded, setExpanded] = React.useState<string | false>(false);
+
+  const onSwitchChange = (event: ChangeEvent<HTMLInputElement>, checked: boolean): void => {
+    // @ts-ignore
+    qualities[event.target.value] = checked;
+    setQualities(qualities);
+    setTotalKarma(calculateKarma());
   };
 
-  const [negativeQualities, setNegativeQualities] = useLocalStorage('q.negative-qualities', []);
-  const handleNegativeChange = (event: MouseEvent<HTMLElement>, newQualities: string[]): void => {
-    setNegativeQualities(newQualities);
-    setTotalKarma(calculateKarma(positiveQualities, newQualities));
-  };
-
-  const calculateKarma: Function = (newPositiveQualities: string[], newNegativeQualities: string[]): number => {
+  const calculateKarma: Function = (): number => {
     let total = 50;
-
-    // eslint-disable-next-line no-console
-    newPositiveQualities.forEach((quality: string) => {
-      total = total - QualitiesUtil.positiveQualityMap().get(quality).value;
-    })
-
-    // eslint-disable-next-line no-console
-    newNegativeQualities.forEach((quality: string) => {
-      total = total + QualitiesUtil.negativeQualityMap().get(quality).value;
-    })
+    // @ts-ignore
+    Object.keys(qualities).forEach(key => { if(qualities[key]) total = total + QualitiesUtil.qualityMap().get(key).value });
 
     return total;
   };
 
+
+  const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
+  const generateAccordions = (): ReactNode[] => {
+    let accordions: ReactNode[] = [];
+
+    QualitiesUtil.qualities.forEach(quality => {
+      // @ts-ignore
+      accordions.push(QualityAccordion(quality, expanded, qualities[quality.name], handleChange, onSwitchChange));
+    })
+
+    return accordions
+  }
+
   return (
-    <Box>
-      {totalKarma}
-      <ToggleButtonGroup
-        orientation="vertical"
-        value={positiveQualities}
-        onChange={handlePositiveChange}>
-        { QualityButton(QualitiesUtil.Ambidextrous) }
-        { QualityButton(QualitiesUtil.AnalyticalMind) }
-      </ToggleButtonGroup>
-      <ToggleButtonGroup
-        orientation="vertical"
-        value={negativeQualities}
-        onChange={handleNegativeChange}>
-        { QualityButton(QualitiesUtil.Addiction) }
-        { QualityButton(QualitiesUtil.Allergy) }
-      </ToggleButtonGroup>
-    </Box>
-  );
+    <div>
+      <Box sx={{width: '100%', textAlign: 'center'}}>{totalKarma}</Box>
+      {generateAccordions()}
+    </div>);
 }
+
 export default Qualities;

@@ -4,6 +4,7 @@ import {Psychology, Coronavirus, Vaccines, SignLanguage} from '@mui/icons-materi
 interface Quality {
   name: string,
   label: string,
+  positive: boolean,
   value: number,
   icon: ReactElement,
   tooltip: string
@@ -13,7 +14,8 @@ class QualitiesUtil {
   static Ambidextrous: Quality = {
     name: 'ambidextrous',
     label: 'Ambidextrous',
-    value: 4,
+    positive: true,
+    value: -4,
     icon: <SignLanguage />,
     tooltip: 'You are equally adept at using either your right ' +
       'or left side. Whether shooting a gun, throwing a ' +
@@ -24,7 +26,8 @@ class QualitiesUtil {
   static AnalyticalMind: Quality = {
     name: 'analytical-mind',
     label: 'Analytical Mind',
-    value: 3,
+    positive: true,
+    value: -3,
     icon: <Psychology />,
     tooltip: 'You are a master problem solver. You can ' +
       'analyze information to help deduce solutions, ' +
@@ -32,20 +35,10 @@ class QualitiesUtil {
       'and noise.'
   }
 
-  static positiveQualities: Quality[] = [
-    this.Ambidextrous,
-    this.AnalyticalMind
-  ]
-
-  static positiveQualityMap: Function = () => {
-    let map = new Map<string, Quality>();
-    this.positiveQualities.forEach((quality: Quality) => map.set(quality.name, quality));
-    return map;
-  }
-
   static Addiction: Quality = {
     name: 'addiction',
     label: 'Addiction',
+    positive: false,
     value: 2,
     icon: <Vaccines />,
     tooltip: 'Some habits just can’t be kicked. It might be ' +
@@ -58,6 +51,7 @@ class QualitiesUtil {
   static Allergy: Quality = {
     name: 'allergy',
     label: 'Allergy',
+    positive: false,
     value: 2,
     icon: <Coronavirus />,
     tooltip: 'Maybe it’s a runny nose and poorly timed ' +
@@ -67,14 +61,18 @@ class QualitiesUtil {
       'from a substance found in the Sixth World.'
   }
 
-  static negativeQualities: Quality[] = [
+  static qualities: Quality[] = [
+    // Positive
+    this.Ambidextrous,
+    this.AnalyticalMind,
+    // Negative
     this.Addiction,
     this.Allergy
   ]
 
-  static negativeQualityMap: Function = () => {
+  static qualityMap: Function = () => {
     let map = new Map<string, Quality>();
-    this.negativeQualities.forEach((quality: Quality) => map.set(quality.name, quality));
+    this.qualities.forEach((quality: Quality) => map.set(quality.name, quality));
     return map;
   }
 }
