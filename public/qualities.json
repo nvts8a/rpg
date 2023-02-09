@@ -70,7 +70,7 @@
   "allergy": {
     "name": "allergy",
     "label": "Allergy",
-    "positive": true,
+    "positive": false,
     "value": 2,
     "weight": ["s"],
     "description": "Maybe it’s a runny nose and poorly timed sneezes from pollen, or a full-blown anaphylactic reaction from some of those rare natural peanuts. Whatever it is, you suffer some level of discomfort from a substance found in the Sixth World.",

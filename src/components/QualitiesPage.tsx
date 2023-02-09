@@ -4,6 +4,7 @@ import PageLayout from '../layouts/PageLayout';
 import {qualityMap, Quality} from '../utils/QualitiesUtil';
 import QualityAccordion from './QualityAccordion';
 import {useLocalStorage} from '../utils/react-local-storage';
+import {Stack, Typography, Box} from '@mui/material';
 
 type QualitiesPageProps = {
   setTotalKarma: Function
@@ -34,17 +35,32 @@ const QualitiesPage: FunctionComponent<QualitiesPageProps> = (props) => {
     props.setTotalKarma(calculateKarma());
   };
 
-  const generateAccordions = (): ReactNode[] => {
+  const generateAccordions = (positive: boolean): ReactNode[] => {
     let accordions: ReactNode[] = [];
-    qualityList.forEach((quality: Quality, qualityName: string) => { // @ts-ignore
-      accordions.push(QualityAccordion(qualityName, quality, expanded, qualities[qualityName], handleExpandChange, handleSwitchChange));
+    qualityList.forEach((quality: Quality, qualityName: string) => {
+      if(quality.positive == positive) {
+        accordions.push(
+          QualityAccordion( // @ts-ignore
+            qualityName, quality, expanded, qualities[qualityName],
+            handleExpandChange, handleSwitchChange)
+        );
+      }
     });
     return accordions
   }
 
   return (
     <PageLayout>
-      {generateAccordions()}
+      <Stack direction="row" spacing={5}>
+        <Box sx={{ width: '47%' }}>
+          <Typography component='div' variant='button' align='center' gutterBottom={true} sx={{ fontSize: '1.5em'}}>Positive Qualities</Typography>
+          {generateAccordions(true)}
+        </Box>
+        <Box sx={{ width: '47%' }}>
+          <Typography component='div' variant='button' align='center' gutterBottom={true} sx={{ fontSize: '1.5em'}}>Negative Qualities</Typography>
+          {generateAccordions(false)}
+        </Box>
+      </Stack>
     </PageLayout>);
 }
 
