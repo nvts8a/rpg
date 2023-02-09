@@ -1,6 +1,7 @@
 /* eslint-env browser */
 import {ChangeEvent, FunctionComponent, ReactNode} from 'react';
-import {FormControl, InputLabel, Select, SelectChangeEvent, Slider, TextField} from '@mui/material';
+import {FormControl, InputLabel, Select, SelectChangeEvent, Slider, styled, TextField} from '@mui/material';
+import '@fontsource/orbitron/500.css';
 
 type CharacterFieldProps = {
   children?: ReactNode,
@@ -9,9 +10,22 @@ type CharacterFieldProps = {
   value: any,
   setFunction: Function
 }
+
+const fieldStyles = {
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: 'purple',
+    },
+    '&:hover fieldset': {
+      borderColor: 'pink',
+    }
+  }
+}
+
+const CssFormControl = styled(FormControl)(fieldStyles);
 const CharacterSelectField: FunctionComponent<CharacterFieldProps> = (props: CharacterFieldProps) => {
   return (
-    <FormControl fullWidth>
+    <CssFormControl fullWidth sx={{label: {fontFamily: 'Orbitron'}}}>
       <InputLabel id={props.name}>{props.label}</InputLabel>
       <Select labelId={props.name} id={`${props.name}-select`}
         value={props.value}
@@ -20,12 +34,16 @@ const CharacterSelectField: FunctionComponent<CharacterFieldProps> = (props: Cha
       >
         {props.children}
       </Select>
-    </FormControl>
+    </CssFormControl>
   )
 }
+
+const CssTextField = styled(TextField)(fieldStyles);
 const CharacterTextField: FunctionComponent<CharacterFieldProps> = (props: CharacterFieldProps) => {
   return (
-    <TextField fullWidth id={props.name} label={props.label} defaultValue={props.value}
+    <CssTextField
+      fullWidth id={props.name} label={props.label} defaultValue={props.value}
+      color='secondary' sx={{label: {fontFamily: 'Orbitron'}}}
       onChange={(e: ChangeEvent<HTMLInputElement>): void => props.setFunction(e.target.value)} />
   );
 }
@@ -34,6 +52,7 @@ const CharacterMultiLineTextField: FunctionComponent<CharacterFieldProps> = (pro
   return (
     <TextField fullWidth multiline rows={4} variant="filled"
       id={props.name} label={props.label} defaultValue={props.value}
+      color='secondary' sx={{label: {fontFamily: 'Orbitron'}}}
       onChange={(e: ChangeEvent<HTMLInputElement>): void => props.setFunction(e.target.value)} />
   )
 }

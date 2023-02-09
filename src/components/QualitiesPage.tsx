@@ -5,6 +5,7 @@ import {qualityMap, Quality} from '../utils/QualitiesUtil';
 import QualityAccordion from './QualityAccordion';
 import {useLocalStorage} from '../utils/react-local-storage';
 import {Stack, Typography, Box} from '@mui/material';
+import '@fontsource/orbitron/500.css';
 
 type QualitiesPageProps = {
   setTotalKarma: Function
@@ -46,18 +47,28 @@ const QualitiesPage: FunctionComponent<QualitiesPageProps> = (props) => {
         );
       }
     });
-    return accordions
+    return accordions;
+  }
+
+  const QualityHeader: FunctionComponent<{title: string}> = (props: {title: string}) => {
+    return(
+      <Typography
+        component='div' variant='button' align='center' gutterBottom={true}
+        sx={{ fontSize: '1.5em', fontFamily: 'Orbitron' }}>
+        {props.title}
+      </Typography>
+    );
   }
 
   return (
     <PageLayout>
       <Stack direction="row" spacing={5}>
         <Box sx={{ width: '47%' }}>
-          <Typography component='div' variant='button' align='center' gutterBottom={true} sx={{ fontSize: '1.5em'}}>Positive Qualities</Typography>
+          <QualityHeader title='Positive Qualities' />
           {generateAccordions(true)}
         </Box>
         <Box sx={{ width: '47%' }}>
-          <Typography component='div' variant='button' align='center' gutterBottom={true} sx={{ fontSize: '1.5em'}}>Negative Qualities</Typography>
+          <QualityHeader title='Negative Qualities' />
           {generateAccordions(false)}
         </Box>
       </Stack>

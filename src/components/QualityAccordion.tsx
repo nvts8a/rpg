@@ -22,11 +22,11 @@ const QualityAccordion: Function = (
     let weightIcons: ReactNode[] = [];
     weights.forEach(weight => {
       switch (weight) {
-      case 'a': weightIcons.push(<Arcane  key='arcane' />);   break;
-      case 'f': weightIcons.push(<Face    key='face' />);     break;
-      case 's': weightIcons.push(<Samurai key='samurai' />);  break;
-      case 't': weightIcons.push(<Techie  key='techie' />);   break;
-      default:  weightIcons.push(<Missing  key='missing' />);
+      case 'a': weightIcons.push(<Arcane  color="primary" key='arcane' />);   break;
+      case 'f': weightIcons.push(<Face    color="primary" key='face' />);     break;
+      case 's': weightIcons.push(<Samurai color="primary" key='samurai' />);  break;
+      case 't': weightIcons.push(<Techie  color="primary" key='techie' />);   break;
+      default:  weightIcons.push(<Missing color="secondary" key='missing' />);
       }
     })
 
@@ -53,7 +53,7 @@ const QualityAccordion: Function = (
           {quality.label}
         </Typography>
         <Typography variant="overline" sx={{ minWidth: '25%', color: 'text.secondary' }}>
-          {quality.value} Points
+          {quality.positive ? -quality.value : quality.value} Points
         </Typography>
         <Typography variant="subtitle2">
           {weightDisplay(quality.weight)}

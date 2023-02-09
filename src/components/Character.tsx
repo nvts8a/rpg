@@ -58,16 +58,17 @@ const Character: FunctionComponent<CharacterProps> = (props: CharacterProps) => 
   };
 
   return (
-    <Box
-      sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: '100%' }}
-    >
+    <Box sx={{
+      flexGrow: 1,
+      display: 'flex',
+      height: '100%' }}>
       <Tabs
         orientation="vertical"
         variant="scrollable"
         value={props.currentTab}
         onChange={handleTabChange}
         aria-label="Vertical Tabs"
-        sx={{ borderRight: 1, minWidth: '12%', borderColor: 'divider' }}
+        sx={{ borderRight: 1, minWidth: '12%', backgroundColor: 'white', borderColor: 'divider' }}
       >
         <Tab label="Personal Data" {...a11yProps(0)} />
         <Tab label="History" {...a11yProps(1)} />
