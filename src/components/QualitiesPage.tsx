@@ -1,7 +1,7 @@
 /* eslint-env browser */
-import React, {ChangeEvent, FunctionComponent, ReactNode} from 'react';
+import React, {ChangeEvent, FunctionComponent, ReactNode, useEffect, useState} from 'react';
 import PageLayout from '../layouts/PageLayout';
-import QualitiesUtil from '../utils/QualitiesUtil';
+import {qualityMap, Quality} from '../utils/QualitiesUtil';
 import QualityAccordion from './QualityAccordion';
 import {useLocalStorage} from '../utils/react-local-storage';
 
@@ -11,10 +11,16 @@ type QualitiesPageProps = {
 
 const QualitiesPage: FunctionComponent<QualitiesPageProps> = (props) => {
   const [qualities, setQualities] = useLocalStorage('q.qualities', {});
-  const [expanded, setExpanded] = React.useState<string | false>(false);
+  const [expanded, setExpanded] = useState<string | false>(false);
+  const [qualityList, setQualityList] = useState(new Map());
+
+  useEffect(() => {
+    qualityMap(setQualityList);
+  }, []);
+
   const calculateKarma: Function = (): number => {
     let total = 50; // @ts-ignore
-    Object.keys(qualities).forEach(key => { if(qualities[key]) total = total + QualitiesUtil.qualityMap().get(key).value });
+    Object.keys(qualities).forEach(key => { if(qualities[key]) total = total + qualityList.get(key).value });
     return total;
   };
 
@@ -30,8 +36,8 @@ const QualitiesPage: FunctionComponent<QualitiesPageProps> = (props) => {
 
   const generateAccordions = (): ReactNode[] => {
     let accordions: ReactNode[] = [];
-    QualitiesUtil.qualities.forEach(quality => { // @ts-ignore
-      accordions.push(QualityAccordion(quality, expanded, qualities[quality.name], handleExpandChange, handleSwitchChange));
+    qualityList.forEach((quality: Quality, qualityName: string) => { // @ts-ignore
+      accordions.push(QualityAccordion(qualityName, quality, expanded, qualities[qualityName], handleExpandChange, handleSwitchChange));
     });
     return accordions
   }

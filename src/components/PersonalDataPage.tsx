@@ -1,4 +1,3 @@
-/* eslint-env browser */
 import {FunctionComponent} from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
 import {MenuItem} from '@mui/material';
@@ -7,23 +6,23 @@ import PageLayout from '../layouts/PageLayout';
 import {useLocalStorage} from '../utils/react-local-storage';
 
 type PersonalDataPageProps = {
+  metatype: string,
   name: string,
-  setName: Function
+  role: string,
+  sex: string,
+  setName: Function,
+  setMetatype: Function,
+  setRole: Function,
+  setSex: Function
 }
 
 const PersonalDataPage: FunctionComponent<PersonalDataPageProps> = (props) => {
-  const [role, setRole] = useLocalStorage('pd.role', '');
-  const [metatype, setMetatype] = useLocalStorage('pd.metatype', '');
   const [ethnicity, setEthnicity] = useLocalStorage('pd.ethnicity', '');
   const [age, setAge] = useLocalStorage('pd.age', '');
-  const [sex, setSex] = useLocalStorage('pd.sex', '');
   const [height, setHeight] = useLocalStorage('pd.height', '');
   const [weight, setWeight] = useLocalStorage('pd.weight', '');
   const [reputation, setReputation] = useLocalStorage('pd.reputation', '');
   const [heat, setHeat] = useLocalStorage('pd.heat', '');
-  const [karma, setKarma] = useLocalStorage('pd.karma', '');
-  const [totalKarma, setTotalKarma] = useLocalStorage('pd.total-karma', '');
-  const [misc, setMisc] = useLocalStorage('pd.misc', '');
 
   return (
     <PageLayout>
@@ -32,7 +31,7 @@ const PersonalDataPage: FunctionComponent<PersonalDataPageProps> = (props) => {
           <CharacterTextField label="Name / Primary Alias" value={props.name} setFunction={props.setName}/>
         </Grid>
         <Grid xs={6}>
-          <CharacterSelectField label="Role" value={role} setFunction={setRole}>
+          <CharacterSelectField label="Role" value={props.role} setFunction={props.setRole}>
             <MenuItem value="arcane-specialist">Arcane Specialist</MenuItem>
             <MenuItem value="street-samurai">Street Samurai</MenuItem>
             <MenuItem value="face">Face</MenuItem>
@@ -40,7 +39,7 @@ const PersonalDataPage: FunctionComponent<PersonalDataPageProps> = (props) => {
           </CharacterSelectField>
         </Grid>
         <Grid xs={6}>
-          <CharacterSelectField label="Metatype" value={metatype} setFunction={setMetatype}>
+          <CharacterSelectField label="Metatype" value={props.metatype} setFunction={props.setMetatype}>
             <MenuItem value="human">Human</MenuItem>
             <MenuItem value="dwarf">Dwarf</MenuItem>
             <MenuItem value="elf">Elf</MenuItem>
@@ -55,7 +54,10 @@ const PersonalDataPage: FunctionComponent<PersonalDataPageProps> = (props) => {
           <CharacterTextField label="Age" value={age} setFunction={setAge}/>
         </Grid>
         <Grid xs={3}>
-          <CharacterTextField label="Sex" value={sex} setFunction={setSex}/>
+          <CharacterSelectField label="Sex" value={props.sex} setFunction={props.setSex}>
+            <MenuItem value="him">Male</MenuItem>
+            <MenuItem value="her">Female</MenuItem>
+          </CharacterSelectField>
         </Grid>
         <Grid xs={3}>
           <CharacterTextField label="Height" value={height} setFunction={setHeight}/>
@@ -68,15 +70,6 @@ const PersonalDataPage: FunctionComponent<PersonalDataPageProps> = (props) => {
         </Grid>
         <Grid xs={6}>
           <CharacterTextField label="Heat" value={heat} setFunction={setHeat}/>
-        </Grid>
-        <Grid xs={4}>
-          <CharacterTextField label="QualitiesUtil" value={karma} setFunction={setKarma}/>
-        </Grid>
-        <Grid xs={4}>
-          <CharacterTextField label="Total QualitiesUtil" value={totalKarma} setFunction={setTotalKarma}/>
-        </Grid>
-        <Grid xs={4}>
-          <CharacterTextField label="Misc" value={misc} setFunction={setMisc}/>
         </Grid>
       </Grid>
     </PageLayout>

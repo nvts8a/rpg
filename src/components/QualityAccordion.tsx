@@ -5,6 +5,7 @@ import {Accordion, AccordionDetails, AccordionSummary, Switch, Typography} from 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const QualityAccordion: Function = (
+  name: string,
   quality: Quality,
   expanded: string,
   isChecked: boolean,
@@ -12,13 +13,13 @@ const QualityAccordion: Function = (
   onSwitchChange: (event: ChangeEvent<HTMLInputElement>, checked: boolean) => void) =>
 {
   return (
-    <Accordion key={quality.name} expanded={expanded === quality.name} onChange={handleExpandChange(quality.name)}>
+    <Accordion key={name} expanded={expanded === name} onChange={handleExpandChange(name)}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1bh-content"
         id="panel1bh-header"
       >
-        <Switch value={quality.name} checked={isChecked} onClick={(event: MouseEvent<HTMLButtonElement>): void => {event.stopPropagation()}} onChange={onSwitchChange} />
+        <Switch value={name} checked={isChecked} onClick={(event: MouseEvent<HTMLButtonElement>): void => {event.stopPropagation()}} onChange={onSwitchChange} />
         <Typography sx={{ width: '33%', flexShrink: 0 }}>
           {quality.label}
         </Typography>
@@ -26,7 +27,7 @@ const QualityAccordion: Function = (
       </AccordionSummary>
       <AccordionDetails>
         <Typography>
-          {quality.tooltip}
+          {quality.description}
         </Typography>
       </AccordionDetails>
     </Accordion>

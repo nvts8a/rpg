@@ -40,15 +40,21 @@ function a11yProps(index: number): any {
   };
 }
 
-const Character: FunctionComponent = () => {
-  const [currentTab, setCurrentTab] = useLocalStorage('currentTab', 0);
+type CharacterProps = {
+  currentTab: number,
+  setCurrentTab: Function
+}
 
+const Character: FunctionComponent<CharacterProps> = (props: CharacterProps) => {
   // Character Card Values
   const [name, setName] = useLocalStorage('pd.name', '');
+  const [metatype, setMetatype] = useLocalStorage('pd.metatype', '');
+  const [role, setRole] = useLocalStorage('pd.role', '');
+  const [sex, setSex] = useLocalStorage('pd.sex', '');
   const [totalKarma, setTotalKarma] = useLocalStorage('q.total-karma', 50);
 
   const handleTabChange = (event: SyntheticEvent, newValue: number): void => {
-    setCurrentTab(newValue);
+    props.setCurrentTab(newValue);
   };
 
   return (
@@ -58,25 +64,27 @@ const Character: FunctionComponent = () => {
       <Tabs
         orientation="vertical"
         variant="scrollable"
-        value={currentTab}
+        value={props.currentTab}
         onChange={handleTabChange}
         aria-label="Vertical Tabs"
         sx={{ borderRight: 1, minWidth: '12%', borderColor: 'divider' }}
       >
         <Tab label="Personal Data" {...a11yProps(0)} />
-        <Tab label="HistoryPage" {...a11yProps(1)} />
+        <Tab label="History" {...a11yProps(1)} />
         <Tab label="Qualities" {...a11yProps(2)} />
       </Tabs>
-      <TabPanel value={currentTab} index={0}>
-        <PersonalDataPage name={name} setName={setName} />
+      <TabPanel value={props.currentTab} index={0}>
+        <PersonalDataPage
+          metatype={metatype} name={name} role={role} sex={sex}
+          setMetatype={setMetatype} setName={setName} setRole={setRole} setSex={setSex}/>
       </TabPanel>
-      <TabPanel value={currentTab} index={1}>
+      <TabPanel value={props.currentTab} index={1}>
         <HistoryPage />
       </TabPanel>
-      <TabPanel value={currentTab} index={2}>
+      <TabPanel value={props.currentTab} index={2}>
         <QualitiesPage setTotalKarma={setTotalKarma} />
       </TabPanel>
-      <CharacterCard name={name} totalKarma={totalKarma} />
+      <CharacterCard metatype={metatype} name={name} role={role} sex={sex} totalKarma={totalKarma} />
     </Box>
   );
 }

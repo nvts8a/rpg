@@ -2,10 +2,23 @@ import React, {FunctionComponent} from 'react';
 import {Card, CardContent, CardMedia, Typography} from '@mui/material';
 
 type CharacterCardProps = {
+  metatype: string,
   name: string,
+  role: string,
+  sex: string,
   totalKarma: number
 }
 const CharacterCard: FunctionComponent<CharacterCardProps> = (props) => {
+  const getPortrait = (): string => {
+    if(props.sex && props.metatype) {
+      if(props.role) return `./portraits/${props.sex}/${props.metatype}/${props.role}.webp`;
+      return `./portraits/${props.sex}/${props.metatype}/default.webp`; }
+    if(props.sex) return `./portraits/${props.sex}/default.webp`;
+    if(props.role) return `./portraits/${props.role}.webp`;
+
+    return './portraits/default.webp';
+  }
+
   return(
     <Card sx={{
       position: 'absolute',
@@ -15,8 +28,8 @@ const CharacterCard: FunctionComponent<CharacterCardProps> = (props) => {
     }}>
       <CardMedia
         sx={{ height: 200 }}
-        image="./portrait.webp"
-        title="TEST"
+        image={getPortrait()}
+        title={props.name}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">{props.name}</Typography>
