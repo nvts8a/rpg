@@ -17,7 +17,7 @@ function TabPanel(props: TabPanelProps): ReactElement {
 
   return (
     <Box
-      sx={{ maxWidth: '87%' }}
+      sx={{ width: '85%' }}
       role="tabpanel"
       hidden={value !== index}
       id={`vertical-tabpanel-${index}`}

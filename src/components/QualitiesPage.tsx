@@ -1,10 +1,10 @@
 /* eslint-env browser */
-import React, {ChangeEvent, FunctionComponent, ReactNode, useEffect, useState} from 'react';
+import React, {ChangeEvent, FunctionComponent, ReactElement, ReactNode, useEffect, useState} from 'react';
 import PageLayout from '../layouts/PageLayout';
 import {qualityMap, Quality} from '../utils/QualitiesUtil';
 import QualityAccordion from './QualityAccordion';
 import {useLocalStorage} from '../utils/react-local-storage';
-import {Stack, Box} from '@mui/material';
+import {Stack, Box, Skeleton} from '@mui/material';
 import PageHeader from './PageHeader';
 
 type QualitiesPageProps = {
@@ -36,8 +36,18 @@ const QualitiesPage: FunctionComponent<QualitiesPageProps> = (props) => {
     props.setTotalKarma(calculateKarma());
   };
 
+  const skeletonAccordions: ReactElement =
+    <Stack spacing={0.5}>
+      <Skeleton variant="rectangular" width='100%' height={53} />
+      <Skeleton variant="rectangular" width='100%' height={53} />
+      <Skeleton variant="rectangular" width='100%' height={53} />
+      <Skeleton variant="rectangular" width='100%' height={53} />
+    </Stack>
+
   const generateAccordions = (positive: boolean): ReactNode[] => {
+    if(qualityList.size == 0) return [skeletonAccordions];
     let accordions: ReactNode[] = [];
+
     qualityList.forEach((quality: Quality, qualityName: string) => {
       if(quality.positive == positive) {
         accordions.push(
@@ -51,7 +61,7 @@ const QualitiesPage: FunctionComponent<QualitiesPageProps> = (props) => {
   }
 
   const listStyle = {
-    maxWidth: '50%',
+    width: '50%',
     padding: '10px'
   }
 
