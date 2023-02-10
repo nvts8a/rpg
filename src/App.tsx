@@ -16,6 +16,7 @@ const App: FunctionComponent = () => {
   });
 
   const bannerStyle = {
+    backgroundColor: 'DimGrey',
     backgroundImage: `url(./banners/${currentTab}.webp)`,
     backgroundPosition: 'center',
     backgroundSize: 'cover',

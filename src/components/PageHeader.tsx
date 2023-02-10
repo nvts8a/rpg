@@ -4,7 +4,7 @@ import {Typography} from '@mui/material';
 const PageHeader: FunctionComponent<{title: string}> = (props: {title: string}) => {
   return(
     <Typography
-      component='div' align='center' gutterBottom={true}
+      component='div' align='center' gutterBottom={true} key={props.title}
       sx={{ fontSize: '1.5em', fontFamily: 'Orbitron' }}>
       {props.title.toUpperCase()}
     </Typography>

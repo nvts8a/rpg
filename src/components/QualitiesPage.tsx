@@ -37,15 +37,15 @@ const QualitiesPage: FunctionComponent<QualitiesPageProps> = (props) => {
   };
 
   const skeletonAccordions: ReactElement =
-    <Stack spacing={0.5}>
-      <Skeleton variant="rectangular" width='100%' height={53} />
-      <Skeleton variant="rectangular" width='100%' height={53} />
-      <Skeleton variant="rectangular" width='100%' height={53} />
-      <Skeleton variant="rectangular" width='100%' height={53} />
+    <Stack key='skeleton-stack' spacing={0.5}>
+      <Skeleton key='skeleton-1' variant="rectangular" width='100%' height={53} />
+      <Skeleton key='skeleton-2' variant="rectangular" width='100%' height={53} />
+      <Skeleton key='skeleton-3' variant="rectangular" width='100%' height={53} />
+      <Skeleton key='skeleton-4' variant="rectangular" width='100%' height={53} />
     </Stack>
 
   const generateAccordions = (positive: boolean): ReactNode[] => {
-    if(qualityList.size == 0) return [skeletonAccordions];
+    if(qualityList.size === 0) return [skeletonAccordions];
     let accordions: ReactNode[] = [];
 
     qualityList.forEach((quality: Quality, qualityName: string) => {

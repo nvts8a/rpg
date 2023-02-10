@@ -6,45 +6,61 @@ import {CharacterMultiLineTextField, CharacterSliderField} from './Feilds';
 import PageLayout from '../layouts/PageLayout';
 import {useLocalStorage} from '../utils/react-local-storage';
 import PageHeader from './PageHeader';
+import Info from '@mui/icons-material/HelpTwoTone';
 
 const HistoryPage: FunctionComponent = () => {
-  const [born, setBorn] = useLocalStorage('h.born', '');
-  const [raised, setRaised] = useLocalStorage('h.raised', '');
+  const [born,    setBorn] =    useLocalStorage('h.born', '');
+  const [raised,  setRaised] =  useLocalStorage('h.raised', '');
   const [trained, setTrained] = useLocalStorage('h.trained', '');
-  const [now, setNow] = useLocalStorage('h.now', '');
-  const [slider, setSlider] = useLocalStorage('name', 10);
+  const [now,     setNow] =     useLocalStorage('h.now', '');
+  const [wetwork, setWetwork] = useLocalStorage('h.wetwork', 10);
+  const [drugs,   setDrugs] =   useLocalStorage('h.drugs', 10);
+  const [trafficking, setTrafficking] = useLocalStorage('h.trafficking', 10);
+  const [injustice, setInjustice] = useLocalStorage('h.injustice', 10);
 
+  const HistoryTooltip: FunctionComponent<{ tooltip: string }> = (props: { tooltip: string }) => {
+    return (
+      <Tooltip title={props.tooltip}>
+        <Info fontSize='small' sx={{position: 'relative', left: '49%', top: '14px'}}/>
+      </Tooltip>
+    )
+  }
 
   return (
     <PageLayout>
       <PageHeader title="History" />
       <Grid width='100%' container spacing={2}>
-        <Tooltip title={tooltips.born}>
-          <Grid xs={6}>
-            <CharacterMultiLineTextField label="Where was your character born?"
-              value={born} setFunction={setBorn}/>
-          </Grid>
-        </Tooltip>
-        <Tooltip title={tooltips.raised}>
-          <Grid xs={6}>
-            <CharacterMultiLineTextField label="Where was your character raised?"
-              value={raised} setFunction={setRaised}/>
-          </Grid>
-        </Tooltip>
-        <Tooltip title={tooltips.trained}>
-          <Grid xs={6}>
-            <CharacterMultiLineTextField label="Where was your character trained?"
-              value={trained} setFunction={setTrained}/>
-          </Grid>
-        </Tooltip>
-        <Tooltip title={tooltips.now}>
-          <Grid xs={6}>
-            <CharacterMultiLineTextField label="Where is your character now?"
-              value={now} setFunction={setNow}/>
-          </Grid>
-        </Tooltip>
         <Grid xs={6}>
-          <CharacterSliderField label='Slider' value={slider} setFunction={setSlider} />
+          <CharacterSliderField label='Wetwork' value={wetwork} setFunction={setWetwork} />
+        </Grid>
+        <Grid xs={6}>
+          <CharacterSliderField label='Drugs and Alcohol' value={drugs} setFunction={setDrugs} />
+        </Grid>
+        <Grid xs={6}>
+          <CharacterSliderField label='Trafficking' value={trafficking} setFunction={setTrafficking} />
+        </Grid>
+        <Grid xs={6}>
+          <CharacterSliderField label='Racism and Injustice' value={injustice} setFunction={setInjustice} />
+        </Grid>
+        <Grid xs={6}>
+          <HistoryTooltip tooltip={tooltips.born} />
+          <CharacterMultiLineTextField
+            label="Where was your character born?" value={born} setFunction={setBorn}/>
+        </Grid>
+        <Grid xs={6}>
+          <HistoryTooltip tooltip={tooltips.raised} />
+          <CharacterMultiLineTextField
+            label="Where was your character raised?" value={raised} setFunction={setRaised}/>
+        </Grid>
+        <Grid xs={6}>
+          <HistoryTooltip tooltip={tooltips.trained} />
+          <CharacterMultiLineTextField
+            label="Where was your character trained?" value={trained} setFunction={setTrained}/>
+        </Grid>
+        <Grid xs={6}>
+          <HistoryTooltip tooltip={tooltips.now} />
+          <CharacterMultiLineTextField
+            label="Where is your character now?" value={now} setFunction={setNow}/>
         </Grid>
       </Grid>
     </PageLayout>

@@ -1,6 +1,16 @@
 /* eslint-env browser */
 import {ChangeEvent, FunctionComponent, ReactNode} from 'react';
-import {FormControl, InputLabel, Select, SelectChangeEvent, Slider, styled, TextField} from '@mui/material';
+import {
+  Box,
+  FormControl,
+  InputLabel,
+  Select,
+  SelectChangeEvent,
+  Slider,
+  styled,
+  TextField,
+  Typography
+} from '@mui/material';
 
 type CharacterFieldProps = {
   children?: ReactNode,
@@ -12,12 +22,8 @@ type CharacterFieldProps = {
 
 const fieldStyles = {
   '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: 'purple',
-    },
-    '&:hover fieldset': {
-      borderColor: 'pink',
-    }
+    '&       fieldset': { borderColor: 'purple' },
+    '&:hover fieldset': { borderColor: 'pink' }
   }
 }
 
@@ -49,7 +55,7 @@ const CharacterTextField: FunctionComponent<CharacterFieldProps> = (props: Chara
 
 const CharacterMultiLineTextField: FunctionComponent<CharacterFieldProps> = (props: CharacterFieldProps) => {
   return (
-    <TextField fullWidth multiline rows={4} variant="filled"
+    <TextField fullWidth multiline rows={8} variant="filled"
       id={props.name} label={props.label} defaultValue={props.value}
       color='secondary' sx={{label: {fontFamily: 'Orbitron'}}}
       onChange={(e: ChangeEvent<HTMLInputElement>): void => props.setFunction(e.target.value)} />
@@ -58,15 +64,20 @@ const CharacterMultiLineTextField: FunctionComponent<CharacterFieldProps> = (pro
 
 const CharacterSliderField: FunctionComponent<CharacterFieldProps> = (props: CharacterFieldProps) => {
   return (
-    <Slider
-      aria-label={props.label}
-      defaultValue={Number.parseInt(props.value)}
-      valueLabelDisplay="auto"
-      step={10}
-      marks
-      min={10}
-      max={110}
-    />
+    <Box>
+      <Typography gutterBottom sx={{fontFamily: 'Orbitron'}}>
+        {props.label}
+      </Typography>
+      <Slider
+        value={Number.parseInt(props.value)}
+        valueLabelDisplay="auto"
+        step={10}
+        marks
+        min={10}
+        max={110}
+        onChange={(event: Event, value: number | number[]): void => props.setFunction(value)}
+      />
+    </Box>
   )
 }
 
