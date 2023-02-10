@@ -1,6 +1,5 @@
 import React, {FunctionComponent} from 'react';
 import {Box, Card, CardContent, CardMedia, Chip, Typography} from '@mui/material';
-import '@fontsource/orbitron/500.css';
 
 type CharacterCardProps = {
   metatype: string,
@@ -20,25 +19,35 @@ const CharacterCard: FunctionComponent<CharacterCardProps> = (props) => {
     return './portraits/default.webp';
   }
 
+  const cardStyle = {
+    position: 'absolute',
+    left: '44%',
+    top: '2%',
+    width: '12%'
+  };
+
+  const contentStyle = {
+    backgroundColor: 'WhiteSmoke',
+    border: 6,
+    borderColor: 'rgba(255,85,175,.1)',
+    borderRadius: '8px',
+    borderStyle: 'groove',
+  }
+
   return(
-    <Box sx={{
-      position: 'absolute',
-      top: '2%',
-      left: '44%',
-      width: '12%'
-    }}>
-      <Card >
+    <Box sx={cardStyle}>
+      <Card sx={{ boxShadow: '0 30px 40px rgba(0,0,0,.3)' }}>
         <CardMedia
-          sx={{ height: 200 }}
+          sx={{ height: 200,  }}
           image={getPortrait()}
           title={props.name}
         />
-        <CardContent>
+        <CardContent sx={contentStyle}>
           <Typography variant="h5" component="div" sx={{fontFamily: 'Orbitron'}}>{props.name}</Typography>
           <Typography variant="caption" component="div" sx={{fontFamily: 'Orbitron'}}>{props.role}</Typography>
         </CardContent>
       </Card>
-      <Chip label={props.totalKarma} color='primary' sx={{position: 'relative', left: '37%', top: '-20px', fontFamily: 'Orbitron'}} />
+      <Chip label={props.totalKarma} color='primary' sx={{position: 'relative', left: '37%', top: '-20px', boxShadow: '0 30px 40px rgba(0,0,0,.5)', fontFamily: 'Orbitron'}} />
     </Box>
   );
 }

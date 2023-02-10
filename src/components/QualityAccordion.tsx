@@ -43,30 +43,30 @@ const QualityAccordion: Function = (
     <Accordion key={name} expanded={expanded === name} onChange={handleExpandChange(name)}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1bh-content"
-        id="panel1bh-header"
+        aria-controls='panel1bh-content'
+        id='panel1bh-header'
       >
         <Switch
-          size="small" value={name} checked={isChecked}
+          size='small' value={name} checked={isChecked}
           onClick={onSwitchClick} onChange={onSwitchChange} />
-        <Typography variant="button" sx={{ fontSize: '1em', minWidth: '50%', flexShrink: 1}}>
+        <Typography variant='button' sx={{ fontSize: '1em', minWidth: '48%', paddingLeft: '2%'}}>
           {quality.label}
         </Typography>
-        <Typography variant="overline" sx={{ minWidth: '25%', color: 'text.secondary' }}>
+        <Typography variant='overline' sx={{ minWidth: '25%', color: 'text.secondary' }}>
           {quality.positive ? -quality.value : quality.value} Points
         </Typography>
-        <Typography variant="subtitle2">
+        <Typography variant='subtitle2'>
           {weightDisplay(quality.weight)}
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Typography variant="body1" gutterBottom={true} >
+        <Typography variant='body1' gutterBottom={true} >
           {quality.description}
         </Typography>
-        <Divider role="presentation">
+        <Divider role='presentation'>
           <GameEffect />
         </Divider>
-        <Typography variant="body2">
+        <Typography variant='body2'>
           {quality.gameEffect}
         </Typography>
       </AccordionDetails>

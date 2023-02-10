@@ -4,6 +4,7 @@ import {MenuItem} from '@mui/material';
 import {CharacterSelectField, CharacterTextField} from './Feilds';
 import PageLayout from '../layouts/PageLayout';
 import {useLocalStorage} from '../utils/react-local-storage';
+import PageHeader from './PageHeader';
 
 type PersonalDataPageProps = {
   metatype: string,
@@ -26,6 +27,7 @@ const PersonalDataPage: FunctionComponent<PersonalDataPageProps> = (props) => {
 
   return (
     <PageLayout>
+      <PageHeader title="Personal Data" />
       <Grid container spacing={2}>
         <Grid xs={6}>
           <CharacterTextField label="Name / Primary Alias" value={props.name} setFunction={props.setName}/>

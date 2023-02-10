@@ -1,6 +1,6 @@
 import React, {FunctionComponent, ReactElement, ReactNode, SyntheticEvent} from 'react';
 import {useLocalStorage} from '../utils/react-local-storage';
-import {Box, Tab, Tabs, Typography} from '@mui/material';
+import {Box, Tab, Tabs} from '@mui/material';
 import HistoryPage from './HistoryPage';
 import QualitiesPage from './QualitiesPage';
 import PersonalDataPage from './PersonalDataPage';
@@ -17,7 +17,7 @@ function TabPanel(props: TabPanelProps): ReactElement {
 
   return (
     <Box
-      sx={{ width: '100%' }}
+      sx={{ maxWidth: '87%' }}
       role="tabpanel"
       hidden={value !== index}
       id={`vertical-tabpanel-${index}`}
@@ -26,7 +26,7 @@ function TabPanel(props: TabPanelProps): ReactElement {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography component={'div'}>{children}</Typography>
+          {children}
         </Box>
       )}
     </Box>
@@ -57,6 +57,21 @@ const Character: FunctionComponent<CharacterProps> = (props: CharacterProps) => 
     props.setCurrentTab(newValue);
   };
 
+  const tabStyle = {
+    backgroundColor: 'WhiteSmoke',
+    border: 6,
+    borderColor: 'rgba(255,85,175,.1)',
+    borderRadius: '8px',
+    borderStyle: 'groove',
+    boxShadow: '0 30px 40px rgba(0,0,0,.5)',
+    button: { fontFamily: 'Orbitron' },
+    height: '0%',
+    maxWidth: '12%',
+    marginLeft: '1rem',
+    position: 'relative',
+    top: '-5rem'
+  }
+
   return (
     <Box sx={{
       flexGrow: 1,
@@ -68,11 +83,11 @@ const Character: FunctionComponent<CharacterProps> = (props: CharacterProps) => 
         value={props.currentTab}
         onChange={handleTabChange}
         aria-label="Vertical Tabs"
-        sx={{ borderRight: 1, minWidth: '12%', backgroundColor: 'white', borderColor: 'divider' }}
+        sx={tabStyle}
       >
-        <Tab label="Personal Data" {...a11yProps(0)} />
-        <Tab label="History" {...a11yProps(1)} />
-        <Tab label="Qualities" {...a11yProps(2)} />
+        <Tab label="Personal Data"  {...a11yProps(0)} />
+        <Tab label="History"        {...a11yProps(1)} />
+        <Tab label="Qualities"      {...a11yProps(2)} />
       </Tabs>
       <TabPanel value={props.currentTab} index={0}>
         <PersonalDataPage

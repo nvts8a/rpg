@@ -1,7 +1,6 @@
 /* eslint-env browser */
 import {ChangeEvent, FunctionComponent, ReactNode} from 'react';
 import {FormControl, InputLabel, Select, SelectChangeEvent, Slider, styled, TextField} from '@mui/material';
-import '@fontsource/orbitron/500.css';
 
 type CharacterFieldProps = {
   children?: ReactNode,

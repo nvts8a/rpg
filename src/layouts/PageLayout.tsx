@@ -5,10 +5,11 @@ const PageLayout: FunctionComponent<PropsWithChildren> = (props: PropsWithChildr
   return(
     <Box width='100%' sx={{
       backgroundColor: 'WhiteSmoke',
-      border: 5,
-      borderColor: 'FloralWhite',
-      borderRadius: '10px',
-      boxShadow: '0 30px 40px rgba(0,0,0,.3)'
+      border: 6,
+      borderColor: 'rgba(255,85,175,.1)',
+      borderRadius: '8px',
+      borderStyle: 'groove',
+      boxShadow: '0 30px 40px rgba(0,0,0,.5)'
     }}>
       {props.children}
     </Box>

@@ -5,6 +5,7 @@ import {Tooltip} from '@mui/material';
 import {CharacterMultiLineTextField, CharacterSliderField} from './Feilds';
 import PageLayout from '../layouts/PageLayout';
 import {useLocalStorage} from '../utils/react-local-storage';
+import PageHeader from './PageHeader';
 
 const HistoryPage: FunctionComponent = () => {
   const [born, setBorn] = useLocalStorage('h.born', '');
@@ -16,6 +17,7 @@ const HistoryPage: FunctionComponent = () => {
 
   return (
     <PageLayout>
+      <PageHeader title="History" />
       <Grid width='100%' container spacing={2}>
         <Tooltip title={tooltips.born}>
           <Grid xs={6}>
