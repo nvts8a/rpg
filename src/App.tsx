@@ -16,7 +16,7 @@ const App: FunctionComponent = () => {
   });
 
   const bannerStyle = {
-    backgroundImage: `url(./banners/${currentTab}.jpg)`,
+    backgroundImage: `url(./banners/${currentTab}.webp)`,
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     borderWidth: '5px 0px 5px 0px',
