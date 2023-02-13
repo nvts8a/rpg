@@ -1,13 +1,13 @@
 {
   "astral": {
     "label": "Astral",
+    "untrained": false,
     "specializations": {
       "astral-combat": { "label": "Astral Combat" },
       "astral-signatures": { "label": "Astral Signatures" },
       "emotional-states": { "label": "Emotional States" },
       "spirit-types": { "label": "Spirit Types" }
     },
-    "untrained": false,
     "linkedAttribute": "intuition",
     "secondaries": {
       "willpower": { "description": "For astral combat." }

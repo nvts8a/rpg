@@ -1,15 +1,10 @@
-type Specialization = {
-  labels: string
-}
-
-type Secondary = {
-  description: string
-}
+type Specialization = { labels: string }
+type Secondary = { description: string }
 
 type Skill = {
   label: string;
-  specializations: Map<string, Specialization>;
   untrained: boolean;
+  specializations: Map<string, Specialization>;
   linkedAttribute: string;
   secondaries: Map<string, Secondary>;
   weight: Array<'a'|'f'|'s'|'t'>;
