@@ -1,0 +1,18 @@
+{
+  "astral": {
+    "label": "Astral",
+    "specializations": {
+      "astral-combat": { "label": "Astral Combat" },
+      "astral-signatures": { "label": "Astral Signatures" },
+      "emotional-states": { "label": "Emotional States" },
+      "spirit-types": { "label": "Spirit Types" }
+    },
+    "untrained": false,
+    "linkedAttribute": "intuition",
+    "secondaries": {
+      "willpower": { "description": "For astral combat." }
+    },
+    "weight": ["a"],
+    "description": "This skill can only be used by full or aspected magicians, or by adepts and mystic adepts who have chosen the Astral Perception adept power. It has two primary uses—one is for assensing astral auras, as described on p. 159. The other is for astral combat, as described on p. 160."
+  }
+}

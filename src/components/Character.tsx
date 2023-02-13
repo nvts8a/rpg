@@ -5,6 +5,7 @@ import HistoryPage from './HistoryPage';
 import QualitiesPage from './QualitiesPage';
 import PersonalDataPage from './PersonalDataPage';
 import CharacterCard from './CharacterCard';
+import SkillsPage from './SkillsPage';
 
 interface TabPanelProps {
   children?: ReactNode;
@@ -88,6 +89,7 @@ const Character: FunctionComponent<CharacterProps> = (props: CharacterProps) => 
         <Tab label="Personal Data"  {...a11yProps(0)} />
         <Tab label="History"        {...a11yProps(1)} />
         <Tab label="Qualities"      {...a11yProps(2)} />
+        <Tab label="Skills"         {...a11yProps(3)} />
       </Tabs>
       <TabPanel value={props.currentTab} index={0}>
         <PersonalDataPage
@@ -99,6 +101,9 @@ const Character: FunctionComponent<CharacterProps> = (props: CharacterProps) => 
       </TabPanel>
       <TabPanel value={props.currentTab} index={2}>
         <QualitiesPage setTotalKarma={setTotalKarma} />
+      </TabPanel>
+      <TabPanel value={props.currentTab} index={3}>
+        <SkillsPage />
       </TabPanel>
       <CharacterCard metatype={metatype} name={name} role={role} sex={sex} totalKarma={totalKarma} />
     </Box>

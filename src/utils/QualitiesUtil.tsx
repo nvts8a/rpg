@@ -1,15 +1,15 @@
 type Quality = {
-  label: string,
-  positive: boolean,
-  value: number,
-  range?: number,
-  weight: Array<string>
-  description: string,
-  gameEffect: string
-} // WEIGHTS: S A T F
+  label: string;
+  positive: boolean;
+  value: number;
+  range?: number;
+  weight: Array<'a'|'f'|'s'|'t'>;
+  description: string;
+  gameEffect: string;
+}
 
 let qualityMap = (setQualityList: Function): void => {
-  fetch('qualities.json', {
+  fetch('data/qualities.json', {
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
