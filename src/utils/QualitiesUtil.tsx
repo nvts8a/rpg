@@ -2,6 +2,7 @@ type Quality = {
   label: string,
   positive: boolean,
   value: number,
+  range?: number,
   weight: Array<string>
   description: string,
   gameEffect: string

@@ -2,7 +2,7 @@
 import React, {ChangeEvent, FunctionComponent, ReactElement, ReactNode, useEffect, useState} from 'react';
 import PageLayout from '../layouts/PageLayout';
 import {qualityMap, Quality} from '../utils/QualitiesUtil';
-import QualityAccordion from './QualityAccordion';
+import QualityAccordion, {RangeQualityAccordion} from './QualityAccordion';
 import {useLocalStorage} from '../utils/react-local-storage';
 import {Stack, Box, Skeleton} from '@mui/material';
 import PageHeader from './PageHeader';
@@ -21,8 +21,10 @@ const QualitiesPage: FunctionComponent<QualitiesPageProps> = (props) => {
   }, []);
 
   const calculateKarma: Function = (): number => {
-    let total = 50; // @ts-ignore
-    Object.keys(qualities).forEach(key => { if(qualities[key]) total = total + qualityList.get(key).value });
+    let total = 50;
+    Object.keys(qualities).forEach(key => { // @ts-ignore
+      if(qualities[key]) { total = total + (qualityList.get(key).value * qualities[key]) }
+    });
     return total;
   };
 
@@ -31,7 +33,13 @@ const QualitiesPage: FunctionComponent<QualitiesPageProps> = (props) => {
   };
 
   const handleSwitchChange = (event: ChangeEvent<HTMLInputElement>, checked: boolean): void => { // @ts-ignore
-    qualities[event.target.value] = checked;
+    qualities[event.target.value] = 1 * checked;
+    setQualities(qualities);
+    props.setTotalKarma(calculateKarma());
+  };
+
+  const handleRangeChange = (quality: string, rank: number): void => { // @ts-ignore
+    qualities[quality] = rank;
     setQualities(qualities);
     props.setTotalKarma(calculateKarma());
   };
@@ -50,11 +58,22 @@ const QualitiesPage: FunctionComponent<QualitiesPageProps> = (props) => {
 
     qualityList.forEach((quality: Quality, qualityName: string) => {
       if(quality.positive == positive) {
-        accordions.push(
-          QualityAccordion( // @ts-ignore
-            qualityName, quality, expanded, qualities[qualityName],
-            handleExpandChange, handleSwitchChange)
-        );
+        if(quality.range) {
+          accordions.push(
+            <RangeQualityAccordion // @ts-ignore
+              key={qualityName} name={qualityName} quality={quality} expanded={expanded} currentValue={qualities[qualityName]}
+              handleExpandChange={handleExpandChange}
+              handleSwitchChange={handleSwitchChange}
+              handleRangeChange={handleRangeChange} />
+          );
+        } else {
+          accordions.push(
+            <QualityAccordion  // @ts-ignore
+              key={qualityName} name={qualityName} quality={quality} expanded={expanded} isChecked={qualities[qualityName]}
+              handleExpandChange={handleExpandChange}
+              handleSwitchChange={handleSwitchChange} />
+          );
+        }
       }
     });
     return accordions;

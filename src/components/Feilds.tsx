@@ -69,12 +69,8 @@ const CharacterSliderField: FunctionComponent<CharacterFieldProps> = (props: Cha
         {props.label}
       </Typography>
       <Slider
-        value={Number.parseInt(props.value)}
-        valueLabelDisplay="auto"
-        step={10}
-        marks
-        min={10}
-        max={110}
+        marks min={10} max={110}
+        value={Number.parseInt(props.value)} step={10}
         onChange={(event: Event, value: number | number[]): void => props.setFunction(value)}
       />
     </Box>

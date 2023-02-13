@@ -46,9 +46,10 @@
   },
   "built-tough": {
     "name": "built-tough",
-    "label": "Built Tough (1 to 4)",
+    "label": "Built Tough",
     "positive": true,
     "value": -4,
+    "range": 4,
     "weight": ["s"],
     "description": "You’re built like a brick drekhouse. You’re pretty good at taking a few extra hits before the lights go out.",
     "gameEffect": "You have a number of additional boxes on your Physical Condition Monitor equal to the rank of this quality."
