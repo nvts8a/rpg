@@ -20,14 +20,16 @@ import GameEffect from '@mui/icons-material/CasinoTwoTone';
 
 const onSwitchClick = (event: MouseEvent<HTMLButtonElement>): void => { event.stopPropagation() }
 
-const weightDisplay: Function = (weights: Array<string>): ReactNode => {
+const weightDisplay: Function = (weights: Array<string>, isPositive: boolean): ReactNode => {
   let weightIcons: ReactNode[] = [];
+  let color: 'success' | 'error' = isPositive ? 'success' : 'error';
+
   weights.forEach(weight => {
     switch (weight) {
-    case 'a': weightIcons.push(<Arcane  color="primary" key='arcane' />);   break;
-    case 'f': weightIcons.push(<Face    color="primary" key='face' />);     break;
-    case 's': weightIcons.push(<Samurai color="primary" key='samurai' />);  break;
-    case 't': weightIcons.push(<Techie  color="primary" key='techie' />);   break;
+    case 'a': weightIcons.push(<Arcane  color={color} key='arcane' />);   break;
+    case 'f': weightIcons.push(<Face    color={color} key='face' />);     break;
+    case 's': weightIcons.push(<Samurai color={color} key='samurai' />);  break;
+    case 't': weightIcons.push(<Techie  color={color} key='techie' />);   break;
     default:  weightIcons.push(<Missing color="secondary" key='missing' />); }
   })
 
@@ -61,7 +63,7 @@ const QualityAccordion: FunctionComponent<QualityAccordionProps> = (props: Quali
           {props.quality.positive ? -props.quality.value : props.quality.value} Points
         </Typography>
         <Typography variant='subtitle2'>
-          {weightDisplay(props.quality.weight)}
+          {weightDisplay(props.quality.weight, props.quality.positive)}
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
@@ -130,7 +132,7 @@ const RangeQualityAccordion: FunctionComponent<RangeQualityAccordionProps> = (pr
           {calculatePointValue()} Points
         </Typography>
         <Typography variant='subtitle2'>
-          {weightDisplay(props.quality.weight)}
+          {weightDisplay(props.quality.weight, props.quality.positive)}
         </Typography>
       </AccordionSummary>
       <AccordionDetails>

@@ -50,6 +50,11 @@ const QualitiesPage: FunctionComponent<QualitiesPageProps> = (props) => {
       <Skeleton key='skeleton-2' variant="rectangular" width='100%' height={53} />
       <Skeleton key='skeleton-3' variant="rectangular" width='100%' height={53} />
       <Skeleton key='skeleton-4' variant="rectangular" width='100%' height={53} />
+      <Skeleton key='skeleton-5' variant="rectangular" width='100%' height={53} />
+      <Skeleton key='skeleton-6' variant="rectangular" width='100%' height={53} />
+      <Skeleton key='skeleton-7' variant="rectangular" width='100%' height={53} />
+      <Skeleton key='skeleton-8' variant="rectangular" width='100%' height={53} />
+      <Skeleton key='skeleton-9' variant="rectangular" width='100%' height={53} />
     </Stack>
 
   const generateAccordions = (positive: boolean): ReactNode[] => {
